@@ -178,8 +178,7 @@ class GUI(object):
         self.position = position
         self.draw()
 
-
-if __name__ == '__main__':
+def main():
     run_dir = os.getenv('XDG_RUNTIME_DIR')
     if run_dir is None:
         sys.exit("env variable XDG_RUNTIME_DIR doesn't exist")
@@ -250,8 +249,19 @@ if __name__ == '__main__':
                 gui_options_list.append(item)
         gui_options = dict(zip(gui_options_list[::2], gui_options_list[1::2]))
 
+        for key, value in [
+                           ('borderwidth', '10'), ('selectborderwidth', '3'), ('activestyle', 'dotbox'),
+                           ('font', 'Ubuntu 16 bold'), ('relief', 'flat'),  ('background', '#551a8b'),
+                           ('foreground', '#ffffff')]:
+
+            gui_options.setdefault(key, value)
+
         GUI(i3=i3, history=history, mod=KEY_MAPPING[args.mod],
             reverse=args.reverse, gui_options=gui_options).run()
 
         pid_file_obj.close()
         os.unlink(pid_file_path)
+
+if __name__ == '__main__':
+    main()
+
