@@ -206,6 +206,7 @@ def main():
 
     history_file_path = os.path.join(run_dir, 'i3-workspace-switcher.history')
     i3 = i3ipc.Connection()
+    i3.command("fullscreen disable")
 
     if args.daemon:
         daemon = EventListener(i3=i3, history_file_path=history_file_path,
